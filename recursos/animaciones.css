@@ -1,0 +1,118 @@
+/* Animaciones - Taller Sin Fronteras
+   Todo el movimiento esta dentro de "prefers-reduced-motion: no-preference",
+   asi que quien pide menos movimiento en su sistema no ve nada de esto. */
+
+/* Sombra del encabezado al bajar (no es movimiento) */
+header{transition:box-shadow .3s ease}
+header.scrolled{box-shadow:0 8px 24px #0006}
+
+@media (prefers-reduced-motion:no-preference){
+
+ @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+ @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+ @keyframes pop{from{transform:scale(0)}to{transform:scale(1)}}
+ @keyframes waPulse{0%{transform:scale(1);opacity:.65}100%{transform:scale(1.7);opacity:0}}
+ @keyframes glow{0%,100%{box-shadow:0 0 0 0 #e8a31766}50%{box-shadow:0 0 0 12px #e8a31700}}
+ @keyframes dlgIn{from{opacity:0;transform:translateY(16px) scale(.98)}to{opacity:1;transform:none}}
+ @keyframes ckIn{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+ @keyframes navIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+
+ /* Entrada del titulo principal (inicio y subpaginas) */
+ .hero small,.hero h1,.hero p,.hero .live,.hero .row,
+ .top small,.top h1,.top p{animation:fadeUp .8s cubic-bezier(.2,.7,.2,1) both}
+ .hero h1,.top h1{animation-delay:.1s}
+ .hero p,.top p{animation-delay:.22s}
+ .hero .live{animation-delay:.28s}
+ .hero .row{animation-delay:.34s}
+
+ /* Boton "Llamar ahora": latido suave para llamar la atencion */
+ .hero .row .btn-acc{animation:glow 2.6s ease-in-out 1.6s infinite}
+ .hero .row .btn-acc:hover{animation:none}
+
+ /* Punto verde de "Atencion 24 hs" */
+ .live i{animation:livePulse 1.8s ease-out infinite}
+ @keyframes livePulse{0%{box-shadow:0 0 0 0 #25d36699}100%{box-shadow:0 0 0 10px #25d36600}}
+
+ /* Logo */
+ .logo svg{transition:transform .3s cubic-bezier(.2,1.4,.4,1)}
+ .logo:hover svg{transform:rotate(-8deg) scale(1.08)}
+
+ /* Botones */
+ .btn{transition:background .15s,border-color .15s,transform .18s ease,box-shadow .18s ease}
+ .btn:hover{transform:translateY(-2px);box-shadow:0 8px 18px #0003}
+ .btn:active{transform:translateY(0);box-shadow:none}
+
+ /* Tarjetas de servicios */
+ .svc div{transition:transform .25s ease,box-shadow .25s ease}
+ .svc div:hover{transform:translateY(-6px);box-shadow:0 16px 32px #14202e1f}
+
+ /* Cuadro de marcas que estan con nosotros */
+ .cgrid>div{transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+ .cgrid>div:hover{transform:translateY(-3px);box-shadow:0 10px 22px #14202e1a}
+
+ /* Opiniones: las tarjetas de la pagina de opiniones entran de a una */
+ .rall .rc{animation:fadeUp .6s cubic-bezier(.2,.7,.2,1) backwards;transition:transform .25s ease,box-shadow .25s ease}
+ .rall .rc:hover{transform:translateY(-4px);box-shadow:0 12px 26px #14202e18}
+ .rall .rc:nth-child(2){animation-delay:.06s}
+ .rall .rc:nth-child(3){animation-delay:.12s}
+ .rall .rc:nth-child(4){animation-delay:.18s}
+ .rall .rc:nth-child(5){animation-delay:.24s}
+ .rall .rc:nth-child(6){animation-delay:.3s}
+ .rall .rc:nth-child(7){animation-delay:.36s}
+ .rall .rc:nth-child(n+8){animation-delay:.42s}
+
+ /* La cinta de opiniones se frena al pasar el mouse (para poder leer); la de marcas sigue siempre */
+ .rvw:hover .rv.mv{animation-play-state:paused}
+
+ /* Boton flotante de WhatsApp */
+ .wa{transition:bottom .35s ease,transform .2s ease}
+ .wa:hover{transform:scale(1.1)}
+ .wa::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--wa);animation:waPulse 2.4s ease-out infinite;pointer-events:none}
+
+ /* Campos de formulario */
+ input,textarea,select{transition:border-color .15s,box-shadow .15s}
+ input:focus,textarea:focus{box-shadow:0 0 0 4px #e8a31726}
+
+ /* Ventanas legales, visor de fotos y aviso de cookies */
+ dialog[open]{animation:dlgIn .28s ease}
+ dialog[open]::backdrop{animation:fadeIn .28s ease}
+ #ck.show{animation:ckIn .45s cubic-bezier(.2,.8,.2,1)}
+
+ /* Aparicion al hacer scroll (el JS agrega .anim y data-reveal) */
+ html.anim [data-reveal]{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1);transition-delay:calc(var(--i,0) * 80ms)}
+ html.anim [data-reveal=zoom]{transform:scale(.94)}
+ html.anim [data-reveal].is-in{opacity:1;transform:none}
+
+ /* Rayita naranja que crece debajo de los titulos */
+ html.anim section h2::after{content:"";display:block;width:0;height:4px;border-radius:2px;background:var(--acc);margin-top:8px;transition:width .7s cubic-bezier(.2,.7,.2,1) .25s}
+ html.anim h2.is-in::after,html.anim .is-in h2::after{width:56px}
+
+ /* Los numeros de "Como trabajamos" aparecen de a uno */
+ html.anim .is-in .steps li:before{animation:pop .5s cubic-bezier(.2,1.5,.4,1) both}
+ html.anim .is-in .steps li:nth-child(1):before{animation-delay:.35s}
+ html.anim .is-in .steps li:nth-child(2):before{animation-delay:.47s}
+ html.anim .is-in .steps li:nth-child(3):before{animation-delay:.59s}
+ html.anim .is-in .steps li:nth-child(4):before{animation-delay:.71s}
+
+ /* Barra de progreso de lectura, pegada al borde inferior del encabezado */
+ .prog{position:absolute;left:0;bottom:0;height:3px;width:100%;background:var(--acc);transform-origin:0 50%;transform:scaleX(var(--p,0));pointer-events:none}
+}
+
+/* Pantallas anchas: los bloques de dos columnas entran desde los costados.
+   En celular entran desde abajo para no generar scroll horizontal. */
+@media (prefers-reduced-motion:no-preference) and (min-width:801px){
+ html.anim [data-reveal=left]{transform:translateX(-20px)}
+ html.anim [data-reveal=right]{transform:translateX(20px)}
+}
+
+/* Menu: subrayado animado en pantallas anchas */
+@media (prefers-reduced-motion:no-preference) and (min-width:781px){
+ nav a:not(.btn){position:relative}
+ nav a:not(.btn)::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;background:var(--acc);transform:scaleX(0);transform-origin:left;transition:transform .25s ease}
+ nav a:not(.btn):hover::after,nav a.on:not(.btn)::after{transform:scaleX(1)}
+}
+
+/* Menu desplegable del celular */
+@media (prefers-reduced-motion:no-preference) and (max-width:780px){
+ nav.open{animation:navIn .25s ease}
+}

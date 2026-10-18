@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#14202e">
+<title>Dejá tu opinión | Taller Sin Fronteras</title>
+<meta name="description" content="Contanos cómo te fue en Taller Sin Fronteras, auxilio de camiones en General Las Heras.">
+<link rel="stylesheet" href="../recursos/estilos.css">
+<link rel="stylesheet" href="../recursos/animaciones.css">
+<style>
+.c-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:28px}
+.box h2{font-size:24px;margin-bottom:8px}
+.box p{color:var(--mut);margin-bottom:18px}
+@media(max-width:800px){.c-grid{grid-template-columns:1fr}}
+form{display:grid;gap:14px}
+label.l{font-size:14px;font-weight:600;display:block;margin-bottom:4px}
+input[type=text],textarea{width:100%;padding:12px 14px;border:1px solid #cdd4dc;border-radius:8px;font:inherit;font-size:16px;background:#fff;color:var(--ink)}
+input[type=text]:focus,textarea:focus{outline:2px solid var(--acc);outline-offset:1px;border-color:var(--acc)}
+textarea{min-height:120px;resize:vertical}
+.rate{display:inline-flex;flex-direction:row-reverse;justify-content:flex-end;position:relative}
+.rate input{position:absolute;opacity:0;width:1px;height:1px}
+.rate label{font-size:38px;line-height:1;color:#cdd4dc;cursor:pointer;padding:0 3px}
+.rate input:checked~label,.rate label:hover,.rate label:hover~label{color:var(--acc)}
+.rate input:focus-visible+label{outline:2px solid var(--acc);border-radius:4px}
+#err{color:#b3261e;font-size:14px;min-height:20px}
+.rall{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:20px}
+.rc{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:20px}
+.rc p{color:#3d4a58;font-size:15.5px;margin:6px 0 0}
+.rc small{color:var(--mut)}
+.st{color:var(--acc);letter-spacing:2px;font-size:18px}
+.rh{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.rh b{display:block;line-height:1.25;font-size:15.5px}
+.av{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:700;font-size:19px;flex:none}
+.nota{font-size:13.5px;color:var(--mut)}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="ico" viewBox="0 0 80 80"><rect width="80" height="80" rx="18" fill="#14202e"/><rect x="12" y="26" width="30" height="24" rx="3" fill="#fff"/><path d="M45 33h12.5a3 3 0 0 1 2.4 1.2L67 43v7H45z" fill="#e8a317"/><path d="M49 37h8l5 6H49z" fill="#14202e"/><circle cx="24" cy="52" r="6" fill="#14202e" stroke="#fff" stroke-width="3"/><circle cx="58" cy="52" r="6" fill="#14202e" stroke="#e8a317" stroke-width="3"/><rect x="10" y="62" width="60" height="4" rx="2" fill="#e8a317"/></symbol></svg>
+<header>
+ <div class="wrap bar">
+  <a href="../index.html" class="logo" aria-label="Taller Sin Fronteras, inicio"><svg aria-hidden="true"><use href="#ico"/></svg><span><span class="t1">Taller</span><span class="t2">Sin Fronteras</span></span></a>
+  <button class="burger" id="bg" aria-label="Menú" aria-expanded="false">&#9776;</button>
+  <nav id="nav">
+   <a href="../index.html#servicios">Servicios</a>
+   <a href="../index.html#nosotros">Nosotros</a>
+   <a href="../index.html#fotos">Fotos</a>
+   <a href="../index.html#opiniones" class="on">Opiniones</a>
+   <a href="../index.html#contacto">Contacto</a>
+   <a class="btn btn-acc" href="tel:+5491128518562">Llamar</a>
+  </nav>
+ </div>
+</header>
+
+<div class="top"><div class="wrap"><small>Opiniones</small><h1>Contanos cómo te fue</h1><p>Tu opinión nos ayuda a mejorar y a que otros choferes nos conozcan.</p></div></div>
+
+<section>
+ <div class="wrap c-grid">
+  <div class="box">
+   <h2>Opinión pública en Google</h2>
+   <p>La forma más directa de que tu opinión aparezca en nuestra ficha de Google Maps y la vean todos.</p>
+   <a class="btn btn-acc" href="https://maps.app.goo.gl/n9jc7Dehfp5RE3VC8" target="_blank" rel="noopener">Dejar opinión en Google</a>
+  </div>
+  <div class="box">
+   <h2>Escribinos tu opinión</h2>
+   <p>Si preferís, dejanos tu comentario acá.</p>
+   <form id="frm" novalidate>
+    <div><label class="l" for="n">Nombre</label><input type="text" id="n" autocomplete="name"></div>
+    <div>
+     <span class="l" id="pl">Puntaje</span>
+     <div class="rate" role="radiogroup" aria-labelledby="pl">
+      <input type="radio" name="p" id="s5" value="5"><label for="s5" title="5 estrellas">★</label>
+      <input type="radio" name="p" id="s4" value="4"><label for="s4" title="4 estrellas">★</label>
+      <input type="radio" name="p" id="s3" value="3"><label for="s3" title="3 estrellas">★</label>
+      <input type="radio" name="p" id="s2" value="2"><label for="s2" title="2 estrellas">★</label>
+      <input type="radio" name="p" id="s1" value="1"><label for="s1" title="1 estrella">★</label>
+     </div>
+    </div>
+    <div><label class="l" for="m">Tu opinión</label><textarea id="m" placeholder="Qué servicio te hicimos y cómo fue la atención"></textarea></div>
+    <div id="err" role="alert"></div>
+    <button class="btn btn-dark" type="submit">Enviar opinión</button>
+    <p class="nota" style="margin:0">Solo usamos tu nombre, el puntaje y tu comentario para conocer la opinión de nuestros clientes.</p>
+   </form>
+  </div>
+ </div>
+</section>
+
+<section class="alt">
+ <div class="wrap">
+  <h2>Opiniones de nuestros clientes</h2>
+  <div class="rall" id="rall"></div>
+ </div>
+</section>
+
+<footer>
+ <div class="wrap f">
+  <div>Taller Sin Fronteras<br>Chacabuco 675, 1741 General Las Heras</div>
+  <div><a class="m" href="tel:+5491128518562">+54 9 11 2851-8562</a><br><a class="m" href="../index.html">Volver al inicio</a> · <a class="m" href="../index.html#contacto">Privacidad y términos</a></div>
+ </div>
+ <div class="wrap" style="margin-top:14px">© <span id="y"></span> Taller Sin Fronteras. Todos los derechos reservados.</div>
+</footer>
+<script src="../recursos/comun.js"></script>
+<script src="../recursos/animaciones.js"></script>
+<script>
+var SHEET_URL='https://script.google.com/macros/s/AKfycbyS9FpgaKjFnFLWmtCaMs-tdaZ95JANMC3MGFjabP0MwmQehuue1i5C7sYGWu28uI_Zxg/exec'; // pegá acá la URL de tu Google Apps Script cuando la tengas
+document.getElementById('frm').addEventListener('submit',function(e){
+ e.preventDefault();
+ var n=this.n.value.trim(),m=this.m.value.trim(),p=this.querySelector('input[name=p]:checked'),err=document.getElementById('err');
+ if(!n){err.textContent='Escribí tu nombre.';this.n.focus();return}
+ if(!p){err.textContent='Elegí un puntaje de 1 a 5 estrellas.';return}
+ err.textContent='';
+ if(!SHEET_URL){err.innerHTML='Por ahora no podemos recibir opiniones acá. Podés dejarla en <a href="https://maps.app.goo.gl/n9jc7Dehfp5RE3VC8" target="_blank" rel="noopener" style="text-decoration:underline">Google Maps</a>.';return}
+ var f=this,b=f.querySelector('button');b.disabled=true;
+ fetch(SHEET_URL,{method:'POST',mode:'no-cors',body:JSON.stringify({fecha:new Date().toLocaleString('es-AR'),nombre:n,puntaje:+p.value,opinion:m})})
+ .then(function(){f.closest('.box').innerHTML='<h2>¡Gracias por tu opinión!</h2><p>Ya recibimos tu mensaje.</p>'})
+ .catch(function(){b.disabled=false;err.textContent='No se pudo enviar. Probá de nuevo en unos minutos.'});
+});
+
+var FALLBACK=[
+ {n:'Foamy Pisos de Goma EVA.',e:5,t:'Un capo. Nos rescato del medio de la ruta con lluvia. Llegó al toque y le puso la mejor onda. Gracias!',f:'3 semanas atrás'},
+ {n:'Alejandro Caceres',e:5,t:'Ayudaron a un amigo que se quedó con la familia, unos genios.',f:'3 semanas atrás'},
+ {n:'Mirta',e:3,t:'Un fenomeno el loco',f:'Hace un mes'},
+ {n:'Sebastian Roldan',e:1,t:'Excelente atención, súper recomendable 😊…',f:'Hace un mes'},
+ {n:'César Godoy',e:5,t:'',f:'Hace 2 días'},
+ {n:'Ivana Cordoba',e:5,t:'',f:'3 semanas atrás'},
+ {n:'Luz Aragon',e:5,t:'',f:'Hace un mes'}
+];
+var COL=['#e8a317','#2f7d6d','#3b6ea5','#a5473b','#6b5aa5','#4a8a3a','#b5651d'];
+function stars(n){return '★★★★★'.slice(0,n)+'☆☆☆☆☆'.slice(0,5-n)}
+function card(o){
+ var h=0;for(var i=0;i<o.n.length;i++)h+=o.n.charCodeAt(i);
+ var c=document.createElement('div');c.className='rc';
+ c.innerHTML='<div class="rh"><div class="av"></div><div><b></b><small></small></div></div><div class="st"></div><p></p>';
+ var av=c.querySelector('.av');av.textContent=o.n.trim().charAt(0).toUpperCase();av.style.background=COL[h%COL.length];
+ c.querySelector('b').textContent=o.n;
+ c.querySelector('small').textContent=o.f||'';
+ c.querySelector('.st').textContent=stars(o.e);
+ var p=c.querySelector('p');if(o.t)p.textContent=o.t;else p.remove();
+ return c;
+}
+function pintar(L){var r=document.getElementById('rall');r.innerHTML='';L.forEach(function(o){r.appendChild(card(o))})}
+pintar(FALLBACK);
+fetch(SHEET_URL).then(function(r){return r.json()}).then(function(d){
+ var L=(d||[]).filter(function(x){return x.nombre&&x.puntaje}).map(function(x){return {n:String(x.nombre),e:Math.max(1,Math.min(5,+x.puntaje||5)),t:String(x.opinion||''),f:String(x.fecha||'').split(',')[0]}});
+ if(L.length)pintar(L);
+}).catch(function(){});
+</script>
+</body>
+</html>

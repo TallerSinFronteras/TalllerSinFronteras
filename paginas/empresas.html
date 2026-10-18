@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#14202e">
+<title>Empresas con las que trabajamos | Taller Sin Fronteras</title>
+<meta name="description" content="Empresas que confían en Taller Sin Fronteras, auxilio de camiones y taller mecánico en General Las Heras.">
+<link rel="stylesheet" href="../recursos/estilos.css">
+<link rel="stylesheet" href="../recursos/animaciones.css">
+<style>
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px}
+@media(min-width:900px){.cgrid{grid-template-columns:repeat(4,1fr)}}
+.cgrid>div{background:var(--card);border:1px solid var(--line);border-radius:10px;min-height:96px;padding:16px 12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;font-weight:800;color:var(--ink);font-size:15.5px;line-height:1.25}
+.cgrid>div:hover{border-color:var(--acc)}
+.cgrid img{height:40px;width:auto;max-width:120px;filter:grayscale(1);opacity:.75;transition:filter .2s,opacity .2s}
+.cgrid>div:hover img{filter:none;opacity:1}
+.cgrid img+span{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mut)}
+.cgrid small{font-size:12.5px;font-weight:500;color:var(--mut);line-height:1.3}
+.cgrid span+small{margin-top:-4px}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="ico" viewBox="0 0 80 80"><rect width="80" height="80" rx="18" fill="#14202e"/><rect x="12" y="26" width="30" height="24" rx="3" fill="#fff"/><path d="M45 33h12.5a3 3 0 0 1 2.4 1.2L67 43v7H45z" fill="#e8a317"/><path d="M49 37h8l5 6H49z" fill="#14202e"/><circle cx="24" cy="52" r="6" fill="#14202e" stroke="#fff" stroke-width="3"/><circle cx="58" cy="52" r="6" fill="#14202e" stroke="#e8a317" stroke-width="3"/><rect x="10" y="62" width="60" height="4" rx="2" fill="#e8a317"/></symbol></svg>
+<header>
+ <div class="wrap bar">
+  <a href="../index.html" class="logo" aria-label="Taller Sin Fronteras, inicio"><svg aria-hidden="true"><use href="#ico"/></svg><span><span class="t1">Taller</span><span class="t2">Sin Fronteras</span></span></a>
+  <button class="burger" id="bg" aria-label="Menú" aria-expanded="false">&#9776;</button>
+  <nav id="nav">
+   <a href="../index.html#servicios">Servicios</a>
+   <a href="../index.html#nosotros" class="on">Nosotros</a>
+   <a href="../index.html#fotos">Fotos</a>
+   <a href="../index.html#opiniones">Opiniones</a>
+   <a href="../index.html#contacto">Contacto</a>
+   <a class="btn btn-acc" href="tel:+5491128518562">Llamar</a>
+  </nav>
+ </div>
+</header>
+
+<div class="top"><div class="wrap"><small>Nuestros clientes</small><h1>Empresas con las que trabajamos</h1><p>Empresas que confían en nuestro trabajo.</p></div></div>
+
+<section>
+ <div class="wrap">
+  <div class="cgrid" id="cgrid"></div>
+  <div class="row" style="margin-top:32px">
+   <a class="btn btn-acc" href="tel:+5491128518562">Llamar ahora</a>
+   <a class="btn btn-wa" href="https://wa.me/5491128518562?text=Hola%2C%20quiero%20consultar%20por%20el%20servicio%20para%20mi%20empresa" target="_blank" rel="noopener">Escribir por WhatsApp</a>
+  </div>
+ </div>
+</section>
+
+<footer>
+ <div class="wrap f">
+  <div>Taller Sin Fronteras<br>Chacabuco 675, 1741 General Las Heras</div>
+  <div><a class="m" href="tel:+5491128518562">+54 9 11 2851-8562</a><br><a class="m" href="../index.html">Volver al inicio</a> · <a class="m" href="../index.html#contacto">Privacidad y términos</a></div>
+ </div>
+ <div class="wrap" style="margin-top:14px">© <span id="y"></span> Taller Sin Fronteras. Todos los derechos reservados.</div>
+</footer>
+<script src="../recursos/comun.js"></script>
+<script src="../recursos/empresas.js"></script>
+<script>
+(function(){
+ var cg=document.getElementById('cgrid');
+ (window.EMPRESAS||[]).forEach(function(c){
+  var t=document.createElement('div');
+  t.appendChild(logoEmpresa(c,'../'));
+  var s=document.createElement('span');s.textContent=c.n;t.appendChild(s);
+  if(c.l){var lo=document.createElement('small');lo.textContent=c.l;t.appendChild(lo)}
+  cg.appendChild(t);
+ });
+})();
+</script>
+<script src="../recursos/animaciones.js"></script>
+</body>
+</html>
