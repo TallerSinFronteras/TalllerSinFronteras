@@ -112,7 +112,7 @@ textarea{min-height:120px;resize:vertical}
 <script src="../recursos/animaciones.js"></script>
 <script>
 var SHEET_URL='https://script.google.com/macros/s/AKfycbyS9FpgaKjFnFLWmtCaMs-tdaZ95JANMC3MGFjabP0MwmQehuue1i5C7sYGWu28uI_Zxg/exec'; // pegá acá la URL de tu Google Apps Script cuando la tengas
-var OPINION_API=''; // URL del Worker de Cloudflare (ver backend/LEEME.md). Mientras esté vacía, las opiniones se envían directo a Google (sin IP ni revisión).
+var OPINION_API='https://twilight-credit-aa73.tallersinfronteras.workers.dev/'; // URL del Worker de Cloudflare (ver backend/LEEME.md). Mientras esté vacía, las opiniones se envían directo a Google (sin IP ni revisión).
 document.getElementById('frm').addEventListener('submit',function(e){
  e.preventDefault();
  var n=this.n.value.trim(),m=this.m.value.trim(),p=this.querySelector('input[name=p]:checked'),err=document.getElementById('err');
