@@ -128,6 +128,15 @@ h2{font-size:clamp(27px,4vw,36px);line-height:1.15;margin-bottom:10px;letter-spa
 .steps b{display:block;font-size:18px;margin-bottom:2px}
 .steps span{color:var(--mut);font-size:15.5px}
 @media(max-width:800px){.two{grid-template-columns:1fr;gap:28px}}
+.cob{margin-top:38px}
+.cob h2{font-size:26px}
+.cob .mp{display:grid;grid-template-columns:minmax(120px,190px) 1fr;gap:22px;align-items:center;margin-top:14px}
+.cob img{width:100%;height:auto;display:block}
+.cob ul{list-style:none;display:grid;gap:12px;margin:0}
+.cob li{padding-left:0;color:#3d4a58;font-size:15.5px;display:flex;gap:10px;align-items:flex-start}
+.cob li:before{content:none}
+.cob i{flex:none;width:14px;height:14px;border-radius:4px;margin-top:5px}
+@media(max-width:480px){.cob .mp{grid-template-columns:1fr 1fr;gap:14px}}
 .feat{list-style:none;display:grid;gap:8px;margin:6px 0 18px}
 .feat li{padding-left:26px;position:relative;color:#3d4a58}
 .feat li:before{content:"✓";position:absolute;left:0;color:var(--acc);font-weight:900}
@@ -339,6 +348,19 @@ dialog .db a{text-decoration:underline}
     <li><b>Presupuesto claro</b><span>Detalle de repuestos y mano de obra antes de empezar.</span></li>
     <li><b>Listo para rodar</b><span>Reparamos, probamos y te entregamos con su factura.</span></li>
    </ol>
+   <div class="cob">
+    <h2>Dónde llegamos</h2>
+    <p class="sub" style="margin-top:6px">Auxilio en toda la provincia de Buenos Aires y en toda la Ruta 6.</p>
+    <div class="mp">
+     <img src="recursos/mapa-cobertura.svg" alt="Mapa de Argentina: Buenos Aires en verde, provincias vecinas en naranja y el resto del país en gris" width="420" height="890" loading="lazy">
+     <ul>
+      <li><i style="background:#2f9e5b"></i><span><b>Provincia de Buenos Aires</b><br>Cobertura completa</span></li>
+      <li><i style="background:#f0892a"></i><span><b>Provincias vecinas</b><br>Santa Fe, Entre Ríos, La Pampa y Río Negro: consultanos</span></li>
+      <li><i style="background:#cdd5dd"></i><span><b>Resto del país</b><br>Según el caso, escribinos</span></li>
+     </ul>
+    </div>
+    <p style="font-size:12.5px;color:var(--mut);margin:10px 0 0">Mapa elaborado con datos del Instituto Geográfico Nacional (IGN).</p>
+   </div>
   </div>
  </div>
  <div class="wrap" id="clientes" hidden style="margin-top:56px">
