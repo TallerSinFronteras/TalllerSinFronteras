@@ -5,6 +5,8 @@
    (la misma que va en el Worker de Cloudflare). */
 
 var ID = '1oXw51bRu7dftxnuMQyk5oRZm8mLzgukMXcj6tXptvb4';
+// true = el spam no se guarda en la hoja (se descarta al instante). false = se guarda marcado como 'si' y no se muestra.
+var DESCARTAR_SPAM = true;
 var COLUMNAS = ['fecha', 'nombre', 'puntaje', 'opinion', 'ip', 'spam', 'motivo'];
 
 function hoja_() {
@@ -35,6 +37,9 @@ function doPost(e) {
     var spam = ['si', 'no', 'sin revisar'].indexOf(d.spam) >= 0 ? d.spam : 'sin revisar';
     var motivo = String(d.motivo || '').slice(0, 200);
     if (!nombre || !puntaje) return json_({ ok: false, error: 'faltan datos' });
+
+    // Spam: se descarta sin guardar. A quien lo mandó se le responde que salió bien, para no darle pistas.
+    if (spam === 'si' && DESCARTAR_SPAM) return json_({ ok: true, actualizada: false });
 
     var h = hoja_(), actualizada = false;
 
