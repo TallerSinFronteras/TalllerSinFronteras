@@ -48,11 +48,6 @@
    });
   },{threshold:.6});
   nums.forEach(function(el){
-   /* El contador de marcas sigue al cuadro "Marcas que estan con nosotros" */
-   if(el.hasAttribute('data-clientes')){
-    var n=d.querySelectorAll('#cgrid > div:not(.mas)').length;
-    if(n)el.dataset.to=n;
-   }
    el.textContent=(el.dataset.pre||'')+'0';
    co.observe(el);
   });

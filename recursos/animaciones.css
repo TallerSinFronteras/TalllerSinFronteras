@@ -61,9 +61,6 @@ header.scrolled{box-shadow:0 8px 24px #0006}
  .rall .rc:nth-child(7){animation-delay:.36s}
  .rall .rc:nth-child(n+8){animation-delay:.42s}
 
- /* La cinta de opiniones se frena al pasar el mouse (para poder leer); la de marcas sigue siempre */
- .rvw:hover .rv.mv{animation-play-state:paused}
-
  /* Boton flotante de WhatsApp */
  .wa{transition:bottom .35s ease,transform .2s ease}
  .wa:hover{transform:scale(1.1)}
