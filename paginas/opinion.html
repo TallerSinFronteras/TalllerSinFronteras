@@ -34,6 +34,12 @@ textarea{min-height:120px;resize:vertical}
 .rh b{display:block;line-height:1.25;font-size:15.5px}
 .av{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:700;font-size:19px;flex:none}
 .nota{font-size:13.5px;color:var(--mut)}
+.rsum{display:flex;flex-wrap:wrap;align-items:center;gap:18px 40px;margin:18px 0 4px}
+.rsum .pb{display:flex;align-items:center;gap:14px}
+@media(min-width:560px){.rsum .pb+.pb{border-left:1px solid var(--line);padding-left:40px}}
+.rsum b{font-size:44px;line-height:1}
+.rsum small{color:var(--mut)}
+.rsum a{text-decoration:underline}
 </style>
 </head>
 <body>
@@ -89,6 +95,7 @@ textarea{min-height:120px;resize:vertical}
 <section class="alt">
  <div class="wrap">
   <h2>Opiniones de nuestros clientes</h2>
+  <div class="rsum" id="rsum"></div>
   <div class="rall" id="rall"></div>
  </div>
 </section>
@@ -141,9 +148,30 @@ function card(o){
 }
 function pintar(L){var r=document.getElementById('rall');r.innerHTML='';L.forEach(function(o){r.appendChild(card(o))})}
 pintar(FALLBACK);
+// Resumen con dos puntajes: el de Google Maps y el de las opiniones dejadas en esta página
+var PUNTAJE=4.1,CANTIDAD=7; // ficha de Google Maps (actualizalos si cambian)
+function pb(num,est,txt,link){
+ var d=document.createElement('div');d.className='pb';
+ d.innerHTML='<b></b><div><div class="st"></div><small></small></div>';
+ d.querySelector('b').textContent=num;d.querySelector('.st').textContent=est;
+ var sm=d.querySelector('small');
+ if(link){var a=document.createElement('a');a.href=link;a.textContent=txt;sm.appendChild(a)}else sm.textContent=txt;
+ return d;
+}
+function resumen(W){
+ var rs=document.getElementById('rsum');rs.innerHTML='';
+ rs.appendChild(pb(PUNTAJE.toFixed(1).replace('.',','),stars(Math.round(PUNTAJE)),CANTIDAD+' opiniones en Google Maps'));
+ if(W.length){
+  var t=0;W.forEach(function(o){t+=o.e});var m=t/W.length;
+  rs.appendChild(pb(m.toFixed(1).replace('.',','),stars(Math.round(m)),W.length+(W.length===1?' opinión':' opiniones')+' en esta página'));
+ }else rs.appendChild(pb('–','☆☆☆☆☆','Todavía no hay opiniones en esta página. Dejá la tuya arriba.'));
+}
+resumen([]);
 fetch(SHEET_URL).then(function(r){return r.json()}).then(function(d){
  var L=(d||[]).filter(function(x){return x.nombre&&x.puntaje}).map(function(x){return {n:String(x.nombre),e:Math.max(1,Math.min(5,+x.puntaje||5)),t:String(x.opinion||''),f:String(x.fecha||'').split(',')[0]}});
- if(L.length)pintar(L);
+ var nom=FALLBACK.map(function(o){return o.n.trim().toLowerCase()});
+ L=L.filter(function(o){return nom.indexOf(o.n.trim().toLowerCase())<0});
+ if(L.length){resumen(L);pintar(L.concat(FALLBACK))}
 }).catch(function(){});
 </script>
 </body>
