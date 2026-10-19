@@ -4,7 +4,7 @@
    logo = ruta a su logo (opcional), por ejemplo 'clientes/empresa.svg'.
    Todas las empresas de esta lista se muestran en paginas/empresas.html. */
 var EMPRESAS=[
- {n:'Manaos SRL',l:'Catán, Buenos Aires'},
+ {n:'Manaos SRL',l:'Catán, Buenos Aires',logo:'logos/marcas-que-trabajan-con-nosotros/manaos-srl.png'},
  {n:'Marolio SRL',l:'Rodríguez, Buenos Aires'},
  {n:'Mercado Libre',l:'Terminal Celina, Buenos Aires'},
  {n:'La Dolche Bonafide',l:'Mataderos, CABA'},

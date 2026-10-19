@@ -83,6 +83,11 @@ nav .btn{padding:9px 16px;font-size:14px;color:var(--accink)}
 .row{display:flex;flex-wrap:wrap;gap:12px}
 .live{display:flex;width:fit-content;align-items:center;gap:10px;padding:8px 16px;border-radius:999px;background:#ffffff14;border:1px solid #ffffff2e;font-size:15px;font-weight:600;margin:-10px 0 22px}
 .live i{width:10px;height:10px;border-radius:50%;background:var(--wa);flex:none}
+.btn svg{width:20px;height:20px;flex:none;fill:currentColor}
+.btn[disabled]{opacity:.7;cursor:wait}
+.locmsg{font-size:14.5px;min-height:1.4em;margin-top:12px}
+.hero .locmsg{color:#d9e2ec;margin-bottom:-6px}
+.box .locmsg{color:var(--mut)}
 
 /* Marcas */
 .brands{background:var(--card);border-bottom:1px solid var(--line);padding:26px 0 22px}
@@ -177,6 +182,8 @@ textarea{min-height:100px;resize:vertical}
 .chk input{width:20px;height:20px;margin-top:2px;flex:none;accent-color:var(--dark)}
 .chk a{text-decoration:underline;color:var(--ink)}
 @media(max-width:800px){.c-grid{grid-template-columns:1fr}}
+@media(max-width:420px){.box{padding:22px 18px}.info b{font-size:16px}}
+@media(max-width:340px){.wrap{padding:0 16px}.box{padding:20px 14px}.info b{font-size:14px}}
 .map{margin-top:28px;border-radius:10px;overflow:hidden;border:1px solid var(--line);background:#dde2e8}
 .map iframe{display:block;width:100%;height:380px;border:0}
 .map .ph{height:380px;display:grid;place-items:center;text-align:center;padding:24px;color:var(--mut);background:#e6eaef}
@@ -262,7 +269,9 @@ dialog .db a{text-decoration:underline}
   <div class="row">
    <a class="btn btn-acc" href="tel:+5491128518562">Llamar ahora</a>
    <a class="btn btn-line" href="https://wa.me/5491128518562?text=Hola%2C%20necesito%20ayuda%20con%20un%20cami%C3%B3n" target="_blank" rel="noopener">Escribir por WhatsApp</a>
+   <button type="button" class="btn btn-wa" data-loc><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>Enviar mi ubicación</button>
   </div>
+  <div class="locmsg" role="status" aria-live="polite"></div>
  </div>
 </div>
 
@@ -368,7 +377,7 @@ dialog .db a{text-decoration:underline}
 <section id="opiniones" class="alt">
  <div class="wrap">
   <h2>Opiniones de nuestros clientes</h2>
-  <p class="sub">Lo que dicen nuestros clientes. <a href="paginas/opinion.html" style="color:#9a6a00;font-weight:700;text-decoration:underline">Ver todas las opiniones →</a></p>
+  <p class="sub">Reseñas de Google Maps y de esta página. <a href="paginas/opinion.html" style="color:#9a6a00;font-weight:700;text-decoration:underline">Ver todas las opiniones →</a></p>
   <div class="rsum" id="rsum"></div>
   <div class="rvw"><div class="rv" id="rv"></div></div>
   <div class="row" style="margin-top:24px">
@@ -392,6 +401,8 @@ dialog .db a{text-decoration:underline}
      <div><small>Horario</small><b>Las 24 hs, todos los días</b></div>
     </div>
     <a class="btn btn-wa" style="width:100%" href="https://wa.me/5491128518562?text=Hola%2C%20necesito%20ayuda%20con%20un%20cami%C3%B3n" target="_blank" rel="noopener">Chatear por WhatsApp</a>
+    <button type="button" class="btn btn-dark" style="width:100%;margin-top:10px" data-loc><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>Enviar mi ubicación por WhatsApp</button>
+    <div class="locmsg" role="status" aria-live="polite"></div>
    </div>
    <div class="box">
     <h3>Dejanos tu consulta</h3>
@@ -459,6 +470,7 @@ dialog .db a{text-decoration:underline}
   <h3>2. Qué datos recopilamos</h3>
   <ul>
    <li><b>Datos que nos brindás:</b> nombre, teléfono y el mensaje que escribas en el formulario de contacto, o los que nos envíes por llamada, WhatsApp o correo electrónico.</li>
+   <li><b>Ubicación:</b> solo si tocás “Enviar mi ubicación”, tu navegador te pide permiso y, si lo aceptás, usamos tu ubicación del momento para armar un mensaje de WhatsApp con un enlace a Google Maps. No la guardamos: solo viaja en el mensaje, que se envía cuando vos lo confirmás en WhatsApp.</li>
    <li><b>Opiniones:</b> si dejás una opinión en la página “Dejar una opinión”, guardamos tu nombre, el puntaje, tu comentario y la fecha en una hoja de cálculo de Google, y los mostramos en este sitio.</li>
    <li><b>Datos técnicos mínimos:</b> si aceptás las cookies de terceros, Google puede recibir datos como tu dirección IP cuando se carga el mapa.</li>
   </ul>
@@ -620,7 +632,11 @@ dialog .db a{text-decoration:underline}
   if(W.length){
    var t=0;W.forEach(function(o){t+=o.e});var m=t/W.length;
    rs.appendChild(pb(m.toFixed(1).replace('.',','),stars(Math.round(m)),W.length+(W.length===1?' opinión':' opiniones')+' en esta página'));
-  }else rs.appendChild(pb('–','☆☆☆☆☆','Todavía no hay opiniones en esta página. Dejá la tuya','paginas/opinion.html'));
+  }else{
+   var v=document.createElement('div');v.className='pb';
+   var a=document.createElement('a');a.href='paginas/opinion.html';a.textContent='Sé el primero en opinar en esta página →';a.style.fontWeight='600';
+   v.appendChild(a);rs.appendChild(v);
+  }
  }
  resumen([]);
  var rv=document.getElementById('rv'),COL=['#e8a317','#2f7d6d','#3b6ea5','#a5473b','#6b5aa5','#4a8a3a','#b5651d'];
@@ -646,8 +662,9 @@ dialog .db a{text-decoration:underline}
  fetch(SHEET_URL).then(function(r){return r.json()}).then(function(d){
   var L=(d||[]).filter(function(x){return x.nombre&&x.puntaje}).map(function(x){return {n:String(x.nombre),e:Math.max(1,Math.min(5,+x.puntaje||5)),t:String(x.opinion||''),f:String(x.fecha||'').split(',')[0]}});
   // Si la hoja repite una reseña de Google, no se cuenta dos veces
-  var nom=OPINIONES.map(function(o){return o.n.trim().toLowerCase()});
-  L=L.filter(function(o){return nom.indexOf(o.n.trim().toLowerCase())<0});
+  function clave(o){return (o.n+'|'+o.e+'|'+o.t).trim().toLowerCase()}
+  var ya=OPINIONES.map(clave);
+  L=L.filter(function(o){return ya.indexOf(clave(o))<0});
   if(L.length){resumen(L);pintar(L.concat(OPINIONES).slice(0,MAX))}
  }).catch(function(){});
 
@@ -690,6 +707,48 @@ dialog .db a{text-decoration:underline}
   if(e.target.closest('[data-close]')){e.target.closest('dialog').close();return}
   if(e.target.tagName==='DIALOG')e.target.close();
  });
+
+ // Enviar mi ubicación por WhatsApp: se pide permiso, se arma un enlace de Google Maps y se abre el chat
+ // (la ubicación no se guarda en ningún lado; solo viaja en el mensaje que vos confirmás en WhatsApp)
+ var WA='https://wa.me/5491128518562?text=';
+ document.querySelectorAll('[data-loc]').forEach(function(b){
+  var cont=b.closest('.box')||b.closest('.wrap');
+  var out=cont&&cont.querySelector('.locmsg'),html0=b.innerHTML;
+  function fin(msg){b.disabled=false;b.innerHTML=html0;if(out)out.textContent=msg||''}
+  function abrir(txt){
+   var u=WA+encodeURIComponent(txt);
+   // No se usa 'noopener' en window.open porque con esa opción siempre devuelve null y no se puede saber si se bloqueó.
+   var w=window.open(u,'_blank');
+   if(w){try{w.opener=null}catch(e){}} // sí se abrió: se corta el vínculo con esta página
+   else location.href=u;               // el navegador la bloqueó: se abre en esta pestaña
+  }
+  b.addEventListener('click',function(){
+   if(b.disabled)return;
+   if(!navigator.geolocation){fin('Tu navegador no permite compartir la ubicación. Te abrimos WhatsApp para que la mandes desde ahí.');abrir('Hola, necesito auxilio en ruta. Te paso mi ubicación enseguida.');return}
+   b.disabled=true;b.textContent='Buscando tu ubicación…';if(out)out.textContent='Aceptá el permiso de ubicación en tu navegador.';
+   navigator.geolocation.getCurrentPosition(function(pos){
+    var la=pos.coords.latitude.toFixed(6),lo=pos.coords.longitude.toFixed(6),pr=Math.round(pos.coords.accuracy||0);
+    var txt='Hola, necesito auxilio. Mi ubicación: https://www.google.com/maps?q='+la+','+lo+(pr?' (precisión aprox. '+pr+' m)':'');
+    fin('Listo, se abrió WhatsApp. Enviá el mensaje para que sepamos dónde estás.');
+    abrir(txt);
+   },function(err){
+    fin(err&&err.code===1?'No diste permiso para la ubicación. Te abrimos WhatsApp para que la mandes desde ahí (clip y luego Ubicación).':'No pudimos obtener tu ubicación. Te abrimos WhatsApp para que la mandes desde ahí (clip y luego Ubicación).');
+    abrir('Hola, necesito auxilio en ruta. Te paso mi ubicación enseguida.');
+   },{enableHighAccuracy:true,timeout:15000,maximumAge:0});
+  });
+ });
+
+ // Abrir las políticas desde otras páginas: index.html#privacidad, #terminos o #cookies
+ var LEG={privacidad:'d-priv',terminos:'d-terms',cookies:'d-cookies'};
+ function legalDeHash(){
+  var d=document.getElementById(LEG[(location.hash||'').slice(1)]||'-');
+  if(d&&d.showModal&&!d.open){document.querySelectorAll('dialog[open]').forEach(function(x){x.close()});d.showModal()}
+ }
+ document.querySelectorAll('dialog').forEach(function(d){d.addEventListener('close',function(){
+  if(LEG[(location.hash||'').slice(1)])history.replaceState(null,'',location.pathname+location.search); // para que al recargar no se vuelva a abrir
+ })});
+ window.addEventListener('hashchange',legalDeHash);
+ legalDeHash();
 
  // Formulario -> WhatsApp
  document.getElementById('frm').addEventListener('submit',function(e){

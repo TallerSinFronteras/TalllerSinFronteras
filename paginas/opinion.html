@@ -72,7 +72,7 @@ textarea{min-height:120px;resize:vertical}
    <h2>Escribinos tu opinión</h2>
    <p>Si preferís, dejanos tu comentario acá.</p>
    <form id="frm" novalidate>
-    <div><label class="l" for="n">Nombre</label><input type="text" id="n" autocomplete="name"></div>
+    <div><label class="l" for="n">Nombre</label><input type="text" id="n" autocomplete="name" maxlength="80"></div>
     <div>
      <span class="l" id="pl">Puntaje</span>
      <div class="rate" role="radiogroup" aria-labelledby="pl">
@@ -83,7 +83,7 @@ textarea{min-height:120px;resize:vertical}
       <input type="radio" name="p" id="s1" value="1"><label for="s1" title="1 estrella">★</label>
      </div>
     </div>
-    <div><label class="l" for="m">Tu opinión</label><textarea id="m" placeholder="Qué servicio te hicimos y cómo fue la atención"></textarea></div>
+    <div><label class="l" for="m">Tu opinión</label><textarea id="m" maxlength="1000" placeholder="Qué servicio te hicimos y cómo fue la atención"></textarea></div>
     <div id="err" role="alert"></div>
     <button class="btn btn-dark" type="submit">Enviar opinión</button>
     <p class="nota" style="margin:0">Solo usamos tu nombre, el puntaje y tu comentario para conocer la opinión de nuestros clientes.</p>
@@ -103,7 +103,7 @@ textarea{min-height:120px;resize:vertical}
 <footer>
  <div class="wrap f">
   <div>Taller Sin Fronteras<br>Chacabuco 675, 1741 General Las Heras</div>
-  <div><a class="m" href="tel:+5491128518562">+54 9 11 2851-8562</a><br><a class="m" href="../index.html">Volver al inicio</a> · <a class="m" href="../index.html#contacto">Privacidad y términos</a></div>
+  <div><a class="m" href="tel:+5491128518562">+54 9 11 2851-8562</a><br><a class="m" href="../index.html">Volver al inicio</a> · <a class="m" href="../index.html#privacidad">Privacidad y términos</a></div>
  </div>
  <div class="wrap" style="margin-top:14px">© <span id="y"></span> Taller Sin Fronteras. Todos los derechos reservados.</div>
 </footer>
@@ -164,13 +164,17 @@ function resumen(W){
  if(W.length){
   var t=0;W.forEach(function(o){t+=o.e});var m=t/W.length;
   rs.appendChild(pb(m.toFixed(1).replace('.',','),stars(Math.round(m)),W.length+(W.length===1?' opinión':' opiniones')+' en esta página'));
- }else rs.appendChild(pb('–','☆☆☆☆☆','Todavía no hay opiniones en esta página. Dejá la tuya arriba.'));
+ }else{
+  var v=document.createElement('div');v.className='pb';v.style.color='var(--mut)';
+  v.textContent='Todavía no hay opiniones en esta página. ¡Dejá la tuya arriba!';rs.appendChild(v);
+ }
 }
 resumen([]);
 fetch(SHEET_URL).then(function(r){return r.json()}).then(function(d){
  var L=(d||[]).filter(function(x){return x.nombre&&x.puntaje}).map(function(x){return {n:String(x.nombre),e:Math.max(1,Math.min(5,+x.puntaje||5)),t:String(x.opinion||''),f:String(x.fecha||'').split(',')[0]}});
- var nom=FALLBACK.map(function(o){return o.n.trim().toLowerCase()});
- L=L.filter(function(o){return nom.indexOf(o.n.trim().toLowerCase())<0});
+ function clave(o){return (o.n+'|'+o.e+'|'+o.t).trim().toLowerCase()}
+ var ya=FALLBACK.map(clave);
+ L=L.filter(function(o){return ya.indexOf(clave(o))<0});
  if(L.length){resumen(L);pintar(L.concat(FALLBACK))}
 }).catch(function(){});
 </script>
