@@ -362,7 +362,7 @@ dialog .db a{text-decoration:underline}
 <section id="opiniones" class="alt">
  <div class="wrap">
   <h2>Opiniones de nuestros clientes</h2>
-  <p class="sub">Lo que dicen nuestros clientes.</p>
+  <p class="sub">Lo que dicen nuestros clientes. <a href="paginas/opinion.html" style="color:#9a6a00;font-weight:700;text-decoration:underline">Ver todas las opiniones →</a></p>
   <div class="rsum" id="rsum"></div>
   <div class="rvw"><div class="rv" id="rv"></div></div>
   <div class="row" style="margin-top:24px">
@@ -589,12 +589,12 @@ dialog .db a{text-decoration:underline}
  // Opiniones de Google: completá estos datos con los reales de tu ficha
  var PUNTAJE=4.1,CANTIDAD=7; // puntaje y cantidad de opiniones de la ficha de Google Maps (actualizalos si cambian)
  var OPINIONES=[
+  {n:'César Godoy',e:5,t:'',f:'Hace 2 días'},
   {n:'Foamy Pisos de Goma EVA.',e:5,t:'Un capo. Nos rescato del medio de la ruta con lluvia. Llegó al toque y le puso la mejor onda. Gracias!',f:'3 semanas atrás'},
   {n:'Alejandro Caceres',e:5,t:'Ayudaron a un amigo que se quedó con la familia, unos genios.',f:'3 semanas atrás'},
+  {n:'Ivana Cordoba',e:5,t:'',f:'3 semanas atrás'},
   {n:'Mirta',e:3,t:'Un fenomeno el loco',f:'Hace un mes'},
   {n:'Sebastian Roldan',e:1,t:'Excelente atención, súper recomendable 😊…',f:'Hace un mes'},
-  {n:'César Godoy',e:5,t:'',f:'Hace 2 días'},
-  {n:'Ivana Cordoba',e:5,t:'',f:'3 semanas atrás'},
   {n:'Luz Aragon',e:5,t:'',f:'Hace un mes'}
  ];
  function stars(n){return '★★★★★'.slice(0,n)+'☆☆☆☆☆'.slice(0,5-n)}
@@ -635,13 +635,14 @@ dialog .db a{text-decoration:underline}
   L.forEach(function(o){rv.appendChild(card(o,false))});
   if(L.length>2){L.forEach(function(o){rv.appendChild(card(o,true))});rv.classList.add('mv');rv.style.setProperty('--d',L.length*7+'s')}
  }
- pintar(OPINIONES);
+ var MAX=5; // cuántas reseñas se ven en el inicio; la página de opiniones muestra todas
+ pintar(OPINIONES.slice(0,MAX));
  fetch(SHEET_URL).then(function(r){return r.json()}).then(function(d){
   var L=(d||[]).filter(function(x){return x.nombre&&x.puntaje}).map(function(x){return {n:String(x.nombre),e:Math.max(1,Math.min(5,+x.puntaje||5)),t:String(x.opinion||''),f:String(x.fecha||'').split(',')[0]}});
   // Si la hoja repite una reseña de Google, no se cuenta dos veces
   var nom=OPINIONES.map(function(o){return o.n.trim().toLowerCase()});
   L=L.filter(function(o){return nom.indexOf(o.n.trim().toLowerCase())<0});
-  if(L.length){resumen(L);pintar(L.concat(OPINIONES))}
+  if(L.length){resumen(L);pintar(L.concat(OPINIONES).slice(0,MAX))}
  }).catch(function(){});
 
  // Mapa condicionado a cookies
