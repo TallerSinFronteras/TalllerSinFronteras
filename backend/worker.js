@@ -44,11 +44,14 @@ async function revisar(env, nombre, puntaje, texto) {
         ]
       })
     });
-    if (!r.ok) throw new Error('groq ' + r.status);
+    if (!r.ok) {
+      let m = ''; try { m = (await r.json()).error.message || ''; } catch (x) {}
+      throw new Error('Groq ' + r.status + ' ' + m);
+    }
     const j = JSON.parse((await r.json()).choices[0].message.content);
     return { spam: j.spam === true ? 'si' : 'no', motivo: String(j.motivo || '').slice(0, 200) };
   } catch (e) {
-    return { spam: 'sin revisar', motivo: 'falló la IA' };   // si la IA falla, la opinión se muestra igual
+    return { spam: 'sin revisar', motivo: 'falló la IA: ' + String(e && e.message || e).slice(0, 150) };   // si la IA falla, la opinión se muestra igual
   }
 }
 
