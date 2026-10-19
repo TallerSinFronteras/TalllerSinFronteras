@@ -85,9 +85,6 @@ nav .btn{padding:9px 16px;font-size:14px;color:var(--accink)}
 .live i{width:10px;height:10px;border-radius:50%;background:var(--wa);flex:none}
 .btn svg{width:20px;height:20px;flex:none;fill:currentColor}
 .btn[disabled]{opacity:.7;cursor:wait}
-.locmsg{font-size:14.5px;min-height:1.4em;margin-top:12px}
-.hero .locmsg{color:#d9e2ec;margin-bottom:-6px}
-.box .locmsg{color:var(--mut)}
 
 /* Marcas */
 .brands{background:var(--card);border-bottom:1px solid var(--line);padding:26px 0 22px}
@@ -269,9 +266,7 @@ dialog .db a{text-decoration:underline}
   <div class="row">
    <a class="btn btn-acc" href="tel:+5491128518562">Llamar ahora</a>
    <a class="btn btn-line" href="https://wa.me/5491128518562?text=Hola%2C%20necesito%20ayuda%20con%20un%20cami%C3%B3n" target="_blank" rel="noopener">Escribir por WhatsApp</a>
-   <button type="button" class="btn btn-wa" data-loc><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>Enviar mi ubicación</button>
   </div>
-  <div class="locmsg" role="status" aria-live="polite"></div>
  </div>
 </div>
 
@@ -401,8 +396,6 @@ dialog .db a{text-decoration:underline}
      <div><small>Horario</small><b>Las 24 hs, todos los días</b></div>
     </div>
     <a class="btn btn-wa" style="width:100%" href="https://wa.me/5491128518562?text=Hola%2C%20necesito%20ayuda%20con%20un%20cami%C3%B3n" target="_blank" rel="noopener">Chatear por WhatsApp</a>
-    <button type="button" class="btn btn-dark" style="width:100%;margin-top:10px" data-loc><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>Enviar mi ubicación por WhatsApp</button>
-    <div class="locmsg" role="status" aria-live="polite"></div>
    </div>
    <div class="box">
     <h3>Dejanos tu consulta</h3>
@@ -470,8 +463,7 @@ dialog .db a{text-decoration:underline}
   <h3>2. Qué datos recopilamos</h3>
   <ul>
    <li><b>Datos que nos brindás:</b> nombre, teléfono y el mensaje que escribas en el formulario de contacto, o los que nos envíes por llamada, WhatsApp o correo electrónico.</li>
-   <li><b>Ubicación:</b> solo si tocás “Enviar mi ubicación”, tu navegador te pide permiso y, si lo aceptás, usamos tu ubicación del momento para armar un mensaje de WhatsApp con un enlace a Google Maps. No la guardamos: solo viaja en el mensaje, que se envía cuando vos lo confirmás en WhatsApp.</li>
-   <li><b>Opiniones:</b> si dejás una opinión en la página “Dejar una opinión”, guardamos tu nombre, el puntaje, tu comentario y la fecha en una hoja de cálculo de Google, y los mostramos en este sitio.</li>
+   <li><b>Opiniones:</b> si dejás una opinión en la página “Dejar una opinión”, guardamos tu nombre, el puntaje, tu comentario y la fecha en una hoja de cálculo de Google, y los mostramos en este sitio. Para evitar spam y opiniones repetidas también guardamos tu dirección IP, pero solo de forma encriptada (hash con clave secreta), por lo que no la podemos leer ni recuperar; si volvés a opinar con el mismo nombre desde la misma conexión, reemplazamos tu opinión anterior. El texto se envía a un servicio de inteligencia artificial (Groq) que indica si parece spam; las opiniones marcadas como spam no se muestran. El envío pasa por un intermediario de Cloudflare. Podés pedir que borremos tu opinión escribiendo a <a href="mailto:tallersinfronteras@zohomail.com">tallersinfronteras@zohomail.com</a>.</li>
    <li><b>Datos técnicos mínimos:</b> si aceptás las cookies de terceros, Google puede recibir datos como tu dirección IP cuando se carga el mapa.</li>
   </ul>
   <p>Este sitio no tiene cuentas de usuario ni pagos en línea, y no guardamos lo que escribís en el formulario de contacto: al enviarlo, se abre WhatsApp con tu mensaje ya redactado y recién se envía cuando vos lo confirmás. Lo único que se guarda y se publica es lo que cargues en el formulario de opiniones. No escribas allí datos que no quieras hacer públicos.</p>
@@ -706,36 +698,6 @@ dialog .db a{text-decoration:underline}
   }
   if(e.target.closest('[data-close]')){e.target.closest('dialog').close();return}
   if(e.target.tagName==='DIALOG')e.target.close();
- });
-
- // Enviar mi ubicación por WhatsApp: se pide permiso, se arma un enlace de Google Maps y se abre el chat
- // (la ubicación no se guarda en ningún lado; solo viaja en el mensaje que vos confirmás en WhatsApp)
- var WA='https://wa.me/5491128518562?text=';
- document.querySelectorAll('[data-loc]').forEach(function(b){
-  var cont=b.closest('.box')||b.closest('.wrap');
-  var out=cont&&cont.querySelector('.locmsg'),html0=b.innerHTML;
-  function fin(msg){b.disabled=false;b.innerHTML=html0;if(out)out.textContent=msg||''}
-  function abrir(txt){
-   var u=WA+encodeURIComponent(txt);
-   // No se usa 'noopener' en window.open porque con esa opción siempre devuelve null y no se puede saber si se bloqueó.
-   var w=window.open(u,'_blank');
-   if(w){try{w.opener=null}catch(e){}} // sí se abrió: se corta el vínculo con esta página
-   else location.href=u;               // el navegador la bloqueó: se abre en esta pestaña
-  }
-  b.addEventListener('click',function(){
-   if(b.disabled)return;
-   if(!navigator.geolocation){fin('Tu navegador no permite compartir la ubicación. Te abrimos WhatsApp para que la mandes desde ahí.');abrir('Hola, necesito auxilio en ruta. Te paso mi ubicación enseguida.');return}
-   b.disabled=true;b.textContent='Buscando tu ubicación…';if(out)out.textContent='Aceptá el permiso de ubicación en tu navegador.';
-   navigator.geolocation.getCurrentPosition(function(pos){
-    var la=pos.coords.latitude.toFixed(6),lo=pos.coords.longitude.toFixed(6),pr=Math.round(pos.coords.accuracy||0);
-    var txt='Hola, necesito auxilio. Mi ubicación: https://www.google.com/maps?q='+la+','+lo+(pr?' (precisión aprox. '+pr+' m)':'');
-    fin('Listo, se abrió WhatsApp. Enviá el mensaje para que sepamos dónde estás.');
-    abrir(txt);
-   },function(err){
-    fin(err&&err.code===1?'No diste permiso para la ubicación. Te abrimos WhatsApp para que la mandes desde ahí (clip y luego Ubicación).':'No pudimos obtener tu ubicación. Te abrimos WhatsApp para que la mandes desde ahí (clip y luego Ubicación).');
-    abrir('Hola, necesito auxilio en ruta. Te paso mi ubicación enseguida.');
-   },{enableHighAccuracy:true,timeout:15000,maximumAge:0});
-  });
  });
 
  // Abrir las políticas desde otras páginas: index.html#privacidad, #terminos o #cookies

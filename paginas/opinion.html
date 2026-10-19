@@ -72,6 +72,7 @@ textarea{min-height:120px;resize:vertical}
    <h2>Escribinos tu opinión</h2>
    <p>Si preferís, dejanos tu comentario acá.</p>
    <form id="frm" novalidate>
+    <input type="text" name="web" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
     <div><label class="l" for="n">Nombre</label><input type="text" id="n" autocomplete="name" maxlength="80"></div>
     <div>
      <span class="l" id="pl">Puntaje</span>
@@ -86,7 +87,7 @@ textarea{min-height:120px;resize:vertical}
     <div><label class="l" for="m">Tu opinión</label><textarea id="m" maxlength="1000" placeholder="Qué servicio te hicimos y cómo fue la atención"></textarea></div>
     <div id="err" role="alert"></div>
     <button class="btn btn-dark" type="submit">Enviar opinión</button>
-    <p class="nota" style="margin:0">Solo usamos tu nombre, el puntaje y tu comentario para conocer la opinión de nuestros clientes.</p>
+    <p class="nota" style="margin:0">Usamos tu nombre, el puntaje y tu comentario para mostrar la opinión de nuestros clientes. Para evitar spam y duplicados guardamos tu dirección IP de forma encriptada (no se puede leer) y revisamos el texto con una herramienta de inteligencia artificial. Si volvés a opinar con el mismo nombre, reemplazamos tu opinión anterior. Más datos en la <a href="../index.html#privacidad" style="text-decoration:underline">Política de Privacidad</a>.</p>
    </form>
   </div>
  </div>
@@ -111,6 +112,7 @@ textarea{min-height:120px;resize:vertical}
 <script src="../recursos/animaciones.js"></script>
 <script>
 var SHEET_URL='https://script.google.com/macros/s/AKfycbyS9FpgaKjFnFLWmtCaMs-tdaZ95JANMC3MGFjabP0MwmQehuue1i5C7sYGWu28uI_Zxg/exec'; // pegá acá la URL de tu Google Apps Script cuando la tengas
+var OPINION_API=''; // URL del Worker de Cloudflare (ver backend/LEEME.md). Mientras esté vacía, las opiniones se envían directo a Google (sin IP ni revisión).
 document.getElementById('frm').addEventListener('submit',function(e){
  e.preventDefault();
  var n=this.n.value.trim(),m=this.m.value.trim(),p=this.querySelector('input[name=p]:checked'),err=document.getElementById('err');
@@ -119,8 +121,12 @@ document.getElementById('frm').addEventListener('submit',function(e){
  err.textContent='';
  if(!SHEET_URL){err.innerHTML='Por ahora no podemos recibir opiniones acá. Podés dejarla en <a href="https://maps.app.goo.gl/n9jc7Dehfp5RE3VC8" target="_blank" rel="noopener" style="text-decoration:underline">Google Maps</a>.';return}
  var f=this,b=f.querySelector('button');b.disabled=true;
- fetch(SHEET_URL,{method:'POST',mode:'no-cors',body:JSON.stringify({fecha:new Date().toLocaleString('es-AR'),nombre:n,puntaje:+p.value,opinion:m})})
- .then(function(){f.closest('.box').innerHTML='<h2>¡Gracias por tu opinión!</h2><p>Ya recibimos tu mensaje.</p>'})
+ var datos={fecha:new Date().toLocaleString('es-AR'),nombre:n,puntaje:+p.value,opinion:m,web:(f.web&&f.web.value)||''};
+ var envio=OPINION_API
+  ? fetch(OPINION_API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(datos)}).then(function(r){return r.json()}).then(function(j){if(!j||!j.ok)throw new Error('no');return j})
+  : fetch(SHEET_URL,{method:'POST',mode:'no-cors',body:JSON.stringify(datos)}).then(function(){return {ok:true}});
+ envio
+ .then(function(j){f.closest('.box').innerHTML=j.actualizada?'<h2>¡Gracias!</h2><p>Actualizamos tu opinión anterior con la nueva.</p>':'<h2>¡Gracias por tu opinión!</h2><p>Ya recibimos tu mensaje.</p>'})
  .catch(function(){b.disabled=false;err.textContent='No se pudo enviar. Probá de nuevo en unos minutos.'});
 });
 
