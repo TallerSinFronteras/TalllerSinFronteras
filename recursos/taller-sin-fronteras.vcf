@@ -1,0 +1,12 @@
+BEGIN:VCARD
+VERSION:3.0
+FN:Taller Sin Fronteras
+N:;Taller Sin Fronteras;;;
+ORG:Taller Sin Fronteras
+TITLE:Auxilio de camiones y taller mecánico
+TEL;TYPE=WORK,VOICE,CELL:+5491128518562
+EMAIL;TYPE=WORK:tallersinfronteras@zohomail.com
+URL:https://tallersinfronteras.github.io/TalllerSinFronteras/
+ADR;TYPE=WORK:;;Chacabuco 675;General Las Heras;Buenos Aires;1741;Argentina
+NOTE:Auxilio de camiones y taller mecánico. Atención 24 hs\, todos los días.
+END:VCARD

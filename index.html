@@ -24,6 +24,7 @@
 <meta name="twitter:description" content="Auxilio en ruta y taller mecánico para camiones en General Las Heras. Atención 24 hs, todos los días. Llamanos al +54 9 11 2851-8562.">
 <meta name="twitter:image" content="https://tallersinfronteras.github.io/TalllerSinFronteras/recursos/tarjeta.png">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Crect width='80' height='80' rx='18' fill='%2314202e'/%3E%3Crect x='12' y='26' width='30' height='24' rx='3' fill='%23fff'/%3E%3Cpath d='M45 33h12.5a3 3 0 0 1 2.4 1.2L67 43v7H45z' fill='%23e8a317'/%3E%3Cpath d='M49 37h8l5 6H49z' fill='%2314202e'/%3E%3Ccircle cx='24' cy='52' r='6' fill='%2314202e' stroke='%23fff' stroke-width='3'/%3E%3Ccircle cx='58' cy='52' r='6' fill='%2314202e' stroke='%23e8a317' stroke-width='3'/%3E%3Crect x='10' y='62' width='60' height='4' rx='2' fill='%23e8a317'/%3E%3C/svg%3E">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Atienden de noche y los fines de semana?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. Atendemos las 24 horas, todos los días del año. Si el camión se para de madrugada o un domingo, llamanos o escribinos por WhatsApp."}}, {"@type": "Question", "name": "¿Hasta dónde llegan?", "acceptedAnswer": {"@type": "Answer", "text": "Hacemos auxilio en toda la provincia de Buenos Aires y en toda la Ruta 6. En algunos casos también vamos a otras provincias: consultanos y te decimos."}}, {"@type": "Question", "name": "¿Qué tengo que decirles cuando llamo?", "acceptedAnswer": {"@type": "Answer", "text": "Tres cosas: dónde estás (lo más exacto posible), qué camión es (marca y modelo) y qué le pasa o qué falla tiene. Así vamos preparados y con los repuestos justos."}}, {"@type": "Question", "name": "¿Cuánto tardan en llegar?", "acceptedAnswer": {"@type": "Answer", "text": "Depende de dónde estés. Llamanos o escribinos y te decimos el tiempo estimado en el momento."}}, {"@type": "Question", "name": "¿Qué pasa si no se puede arreglar en el lugar?", "acceptedAnswer": {"@type": "Answer", "text": "Si se puede resolver ahí mismo, lo hacemos en el momento. Si es más grave, trasladamos el camión a nuestro taller de General Las Heras para repararlo."}}, {"@type": "Question", "name": "¿Cuánto cuesta?", "acceptedAnswer": {"@type": "Answer", "text": "Depende de la falla y del trabajo. Antes de empezar te pasamos el detalle de repuestos y mano de obra, así sabés qué vas a pagar."}}, {"@type": "Question", "name": "¿Entregan factura?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. Reparamos, probamos el camión y te lo entregamos con su factura."}}]}</script>
 <script type="application/ld+json">
 {
  "@context":"https://schema.org",
@@ -140,6 +141,15 @@ h2{font-size:clamp(27px,4vw,36px);line-height:1.15;margin-bottom:10px;letter-spa
 .cob li:before{content:none}
 .cob i{flex:none;width:14px;height:14px;border-radius:4px;margin-top:5px}
 @media(max-width:480px){.cob .mp{grid-template-columns:1fr 1fr;gap:14px}}
+.faq{display:grid;gap:10px;max-width:46em}
+.faq details{background:var(--card);border:1px solid var(--line);border-radius:10px}
+.faq summary{cursor:pointer;list-style:none;padding:16px 48px 16px 18px;font-weight:700;font-size:17px;position:relative;color:var(--ink)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:after{content:"+";position:absolute;right:18px;top:50%;transform:translateY(-50%);font-size:24px;font-weight:700;color:var(--acc);transition:transform .2s}
+.faq details[open] summary:after{content:"\2212"}
+.faq summary:focus-visible{outline:3px solid var(--acc);outline-offset:2px;border-radius:10px}
+.faq details[open]{border-color:var(--acc)}
+.faq details p{padding:0 18px 18px;color:#3d4a58;margin:0}
 .feat{list-style:none;display:grid;gap:8px;margin:6px 0 18px}
 .feat li{padding-left:26px;position:relative;color:#3d4a58}
 .feat li:before{content:"✓";position:absolute;left:0;color:var(--acc);font-weight:900}
@@ -407,6 +417,25 @@ dialog .db a{text-decoration:underline}
  </div>
 </section>
 
+<section id="preguntas">
+ <div class="wrap">
+  <h2>Preguntas frecuentes</h2>
+  <p class="sub">Lo que más nos preguntan. Si tenés otra duda, escribinos.</p>
+  <div class="faq">
+   <details><summary>¿Atienden de noche y los fines de semana?</summary><p>Sí. Atendemos las 24 horas, todos los días del año. Si el camión se para de madrugada o un domingo, llamanos o escribinos por WhatsApp.</p></details>
+   <details><summary>¿Hasta dónde llegan?</summary><p>Hacemos auxilio en toda la provincia de Buenos Aires y en toda la Ruta 6. En algunos casos también vamos a otras provincias: consultanos y te decimos.</p></details>
+   <details><summary>¿Qué tengo que decirles cuando llamo?</summary><p>Tres cosas: dónde estás (lo más exacto posible), qué camión es (marca y modelo) y qué le pasa o qué falla tiene. Así vamos preparados y con los repuestos justos.</p></details>
+   <details><summary>¿Cuánto tardan en llegar?</summary><p>Depende de dónde estés. Llamanos o escribinos y te decimos el tiempo estimado en el momento.</p></details>
+   <details><summary>¿Qué pasa si no se puede arreglar en el lugar?</summary><p>Si se puede resolver ahí mismo, lo hacemos en el momento. Si es más grave, trasladamos el camión a nuestro taller de General Las Heras para repararlo.</p></details>
+   <details><summary>¿Cuánto cuesta?</summary><p>Depende de la falla y del trabajo. Antes de empezar te pasamos el detalle de repuestos y mano de obra, así sabés qué vas a pagar.</p></details>
+   <details><summary>¿Entregan factura?</summary><p>Sí. Reparamos, probamos el camión y te lo entregamos con su factura.</p></details>
+  </div>
+  <div class="row" style="margin-top:24px">
+   <a class="btn btn-wa" href="https://wa.me/5491128518562?text=Hola%2C%20tengo%20una%20consulta" target="_blank" rel="noopener">Consultar por WhatsApp</a>
+  </div>
+ </div>
+</section>
+
 <section id="contacto" class="alt">
  <div class="wrap">
   <h2>Contacto</h2>
@@ -421,6 +450,7 @@ dialog .db a{text-decoration:underline}
      <div><small>Horario</small><b>Las 24 hs, todos los días</b></div>
     </div>
     <a class="btn btn-wa" style="width:100%" href="https://wa.me/5491128518562?text=Hola%2C%20necesito%20ayuda%20con%20un%20cami%C3%B3n" target="_blank" rel="noopener">Chatear por WhatsApp</a>
+    <a class="btn btn-dark" style="width:100%;margin-top:10px" href="recursos/taller-sin-fronteras.vcf" download="Taller Sin Fronteras.vcf">Guardar en mis contactos</a>
    </div>
    <div class="box">
     <h3>Dejanos tu consulta</h3>
